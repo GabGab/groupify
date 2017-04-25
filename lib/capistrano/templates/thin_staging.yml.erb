@@ -1,0 +1,14 @@
+---
+   environment: staging
+   chdir: /home/ror/site/<%= fetch(:staging_application_dir) %>/current/
+   address: 127.0.0.1
+   user: ror
+   group: ror
+   port: 4565
+   pid: /home/ror/http/tmp/thin.pid
+   log: /home/ror/site/<%= fetch(:staging_application_dir) %>/shared/log/thin.log
+   max_conns: 512
+   timeout: 30
+   max_persistent_conns: 256
+   daemonize: true
+   servers: 1

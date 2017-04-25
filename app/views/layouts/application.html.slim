@@ -1,0 +1,76 @@
+doctype html
+html lang="#{ I18n.locale }"
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    = csrf_meta_tags
+
+    title = t(".meta.title")
+    meta name="title" content="#{ t(".meta.google.title") }"
+    meta name="description" content="#{ t(".meta.google.description") }"
+    meta name="author" content="#{ t(".meta.google.author") }"
+
+    / Facebook meta-tags
+    / meta property="fb:app_id"    content="#{ Rails.application.config_for(:facebook)[:app_id] }"
+    / meta property="og:type"      content="website"
+    / meta property="og:locale"    content="#{ t(".meta.facebook.locale") }"
+    / meta property="og:site_name" content="#{ t(".meta.facebook.site_name") }"
+    / meta property="og:image"     content="#{ image_url("share-facebook.jpg") }"
+    / - if content_for?(:facebook_meta)
+    /   = yield :facebook_meta
+    / - else
+    /   meta property="og:url"         content="#{ root_url }"
+    /   meta property="og:title"       content="#{ t(".meta.facebook.title") }"
+    /   meta property="og:description" content="#{ t(".meta.facebook.description") }"
+
+    / Twitter meta-tags
+    / meta name="twitter:card"  content="#{ t(".meta.twitter.card_type") }"
+    / meta name="twitter:site"  content="#{ t(".meta.twitter.site") }"
+    / meta name="twitter:image" content="#{ image_url("share-twitter.jpg") }"
+    / - if content_for?(:twitter_meta)
+    /   = yield :twitter_meta
+    / - else
+    /   meta name="twitter:title" content="#{ t(".meta.twitter.title") }"
+    /   meta name="twitter:title" content="#{ t(".meta.twitter.description") }"
+
+    = favicon_link_tag "favicon.ico", rel: "icon", type: "image/png"
+    = favicon_link_tag "favicon.ico", rel: "apple-touch-icon", type: "image/png"
+
+    = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: true }
+    = stylesheet_link_tag "pages/#{controller.controller_name}", data: { turbolinks_track: true }, media: "all"
+    /[if lte IE 8]
+      = javascript_include_tag "html5shiv"
+    - if Rails.env.production?
+      javascript:
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '#FIXME', 'auto');
+
+  body class="#{controller.controller_name} #{controller.action_name}"
+    javascript:
+      var AppConfig = {
+        Rails: { controller: "#{controller.controller_name}", action: "#{controller.action_name}" },
+        Facebook: { appId: "#{Rails.application.secrets[:fb_app_id]}", locale: "fr_FR" }
+      };
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'Messenger'));
+
+    = yield
+
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+
+    - if Rails.env.production?
+      javascript:
+        ga('send', 'pageview');
+
+    = yield :foot

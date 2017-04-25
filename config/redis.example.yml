@@ -1,0 +1,47 @@
+defaults: &defaults
+  host: localhost
+
+development:
+  cache_store:
+    <<: *defaults
+    namespace: d:c
+    port: 6379
+    db: 0
+  sidekiq_store:
+    <<: *defaults
+    namespace: d:s
+    port:  6379
+    db: 0
+staging:
+  cache_store:
+    <<: *defaults
+    namespace: st:c
+    port: 6379
+    db: 0
+  sidekiq_store:
+    <<: *defaults
+    namespace: st:s
+    port:  6379
+    db: 0
+production:
+  cache_store:
+    <<: *defaults
+    namespace: d:c
+    port: 6379
+    db: 0
+  sidekiq_store:
+    <<: *defaults
+    namespace: d:s
+    port:  6379
+    db: 0
+test:
+  cache_store:
+    <<: *defaults
+    namespace: t:c
+    port: 6379
+    db: 0
+  sidekiq_store:
+    <<: *defaults
+    namespace: t:s
+    port:  6379
+    db: 0

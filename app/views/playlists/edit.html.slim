@@ -1,0 +1,76 @@
+.page
+  h1 Groupify
+  h2 Edit this playlist with your friends
+  p
+    = link_to "#", data: { invite: "1" }, class: "action-button" do
+      => image_tag("send/24pt_large/ic_send_lg_white@2x.png")
+      span#action-text Invite your friends to this playlist
+
+= content_for :foot do
+  javascript:
+    var messageToShare = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Edit Groupified Playlist",
+            "image_url": "http://w38.fr/wp-content/uploads/2016/05/logo-spotify-1.png",
+            "subtitle": "A shared playlist from Groupify",
+            "default_action": {
+              "type": "web_url",
+              "url": "#{ edit_playlist_url(@playlist, protocol: 'https') }",
+              "messenger_extensions": true
+            },
+            "buttons": [{
+              "type": "web_url",
+              "url": "#{ edit_playlist_url(@playlist, protocol: 'https') }",
+              "title": "Edit Playlist",
+              "messenger_extensions": true
+            }]
+          }]
+        }
+      }
+    };
+
+    window.extAsyncInit = function() {
+      // the Messenger Extensions JS SDK is done loading
+      MessengerExtensions.getContext(AppConfig.Facebook.appId,
+        function success(result){
+          // Context is retrieved
+
+          if (result.thread_type == 'USER_TO_PAGE') {
+            var shareType = 'broadcast';
+            $('#action-text').text('Invite your friends to this playlist');
+          } else {
+            var shareType = 'current_thread';
+            $('#action-text').text('Send to conversation');
+          }
+          
+          var shareType = result.thread_type == 'USER_TO_PAGE' ? 'broadcast' : 'current_thread';
+
+          $('[data-invite]').on('click', function(event) {
+            event.preventDefault();
+
+            MessengerExtensions.beginShareFlow(function success(response) {
+              // Share successful
+              MessengerExtensions.requestCloseBrowser(function success() {
+                // Close successful
+              }, function error(err) {
+                // The webview was not able to close
+              });
+      
+            }, function error(errorCode, errorMessage) {
+              // The user was not able to share
+  
+            },
+            messageToShare,
+            shareType);
+          });
+
+        },
+        function error(result){
+          // The webview could not retrieve context
+        }
+      );
+    }

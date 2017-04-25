@@ -1,0 +1,108 @@
+// variables
+$font-regular: "Helvetica Neue", "Istok Web", "Heebo", Helvetica, Arial, sans-serif;
+$font-size-base: 18px;
+$font-size-base-mobile: 14px;
+$responsive-breakpoint: 768px;
+
+$color-white: #fff;
+$color-black: #000;
+$color-green: rgb(138, 227, 189);
+$color-blue: rgb(32, 87, 237);
+
+@mixin clearfix {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+@mixin hide-text {
+  font: 0/0 a;
+  color: rgba(0, 0, 0, 0);
+  text-shadow: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+}
+@mixin sprite($width: none, $height: none, $x-offset: 0, $y-offset: 0) {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  @if $width != none { width: $width; }
+  @if $height != none { height: $height; }
+  background: transparent image-url("sprites.png") no-repeat $x-offset $y-offset;
+}
+
+// animations
+@mixin transition($effects...) {
+  -webkit-transition: $effects;
+  -moz-transition: $effects;
+  -o-transition: $effects;
+  transition: $effects;
+}
+@mixin transform($effects...) {
+  -webkit-transform: $effects;
+  -moz-transform: $effects;
+  -o-transform: $effects;
+  transform: $effects;
+}
+@mixin rotate($degrees) {
+  -webkit-transform: rotate(#{$degrees}deg);
+  -moz-transform: rotate(#{$degrees}deg);
+  -ms-transform: rotate(#{$degrees}deg);
+  -o-transform: rotate(#{$degrees}deg);
+  transform: rotate(#{$degrees}deg);
+
+  filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+  zoom: 1;
+}
+
+// responsive
+@mixin screen($resMin, $resMax) {
+  @media screen and (min-width: $resMin) and (max-width: $resMax) {
+    @content;
+  }
+}
+@mixin max-screen($res) {
+  @media screen and (max-width: $res) {
+    @content;
+  }
+}
+@mixin min-screen($res) {
+  @media screen and (min-width: $res) {
+    @content;
+  }
+}
+@mixin on-smallscreen($breakpoint: $responsive-breakpoint) {
+  @include max-screen($breakpoint) {
+    @content;
+  }
+}
+@mixin on-widescreen($breakpoint: $responsive-breakpoint + 1) {
+  @include min-screen($breakpoint) {
+    @content;
+  }
+}
+
+@mixin high-dpi {
+  @media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+@mixin reset{
+  margin: 0;
+  padding: 0;
+}
+@mixin antialiasing($type: antialiased){
+  -webkit-font-smoothing: $type;
+  font-smoothing: $type;
+  font-smooth: always;
+  text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+}

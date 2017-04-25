@@ -1,0 +1,16 @@
+div data-fullpage="true"
+  div.section.page
+    h1 = t(".title")
+    h2 = t(".subtitle")
+    p.description = t(".description")
+    div.messenger-btn = send_to_messenger_button(data_ref: "command:SOMETHING_ELSE")
+    / div.messenger-btn = send_to_messenger_button(data_ref: "INCITE_FRIENDS")
+
+- unless Rails.env.production?
+  p style="margin: 40px auto; text-align: center; font-size: 120px" 🤓
+  div.debug
+    ul.commands
+      - @bot.commander.commands.each do |command, properties|
+        li
+          p.command = command
+          p.properties = properties.inspect

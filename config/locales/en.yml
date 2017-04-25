@@ -1,0 +1,65 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  layouts:
+    application:
+      meta:
+        title: "#FIXME Groupify"
+        google:
+          title: "#FIXME Google meta title"
+          description: "#FIXME Google meta description"
+          author: "#FIXME Google meta author"
+        facebook:
+          locale: "fr_FR"
+          title: "#FIXME Facebook OG title"
+          description: "#FIXME Facebook OG description"
+          site_name: "#FIXME Facebook OG site_name"
+        twitter:
+          card_type: "summary_large_image"
+          site: "#FIXME Twitter site"
+          title: "#FIXME Twitter title"
+          description: "#FIXME Twitter description"
+  pages:
+    home:
+      title: "Bot Groupify"
+      subtitle: "Groupify's Bot"
+      description: "Groupify description"
+  bobot:
+    persistant_menu:
+      help:
+        text: "Help"
+    commands:
+      start:
+        text: "Are you ready to make a shared Spotify playlist with your friends ? Everyone can add songs, delete them, and stay in sync."
+        button:
+          text: "Groupify Playlist"
+      help:
+        text_1: "This is a help text"
+        text_2: "You can also click here"
+        button_1:
+          text: "Sample 1"
+        button_2:
+          text: "Sample 2"
+      sample_1:
+        text: "Sample 1 text"
+      sample_2:
+        text: "Sample 2 text"

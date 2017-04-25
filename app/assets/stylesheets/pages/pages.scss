@@ -1,0 +1,35 @@
+@import "shared/mixins";
+
+.pages.home{
+  background-color: $color-white;
+  background-image: url("https://tsc-weshare-dev.s3.amazonaws.com/uploads%2F1486570127068-05kfbntnk2zrch3o-f5bf0df10d816258950da7dcbdb2ece5%2FTotal-logo.png");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  text-align: center;
+
+  @include on-smallscreen {
+    background-size: 120%;
+    background-position: 0px bottom;
+  }
+  h1{
+    font-size: 1.6em;
+    color: $color-blue;
+    text-transform: uppercase;
+    margin: 10% auto 10px auto;
+    line-height: 1em;
+  }
+  h2{
+    font-size: 1.1em;
+    color: $color-blue;
+    margin: 0 auto 10px auto;
+  }
+  .description {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  .messenger-btn {
+    margin-top: 30px;
+    padding-left: 45px;
+  }
+}

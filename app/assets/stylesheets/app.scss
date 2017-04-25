@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,700|Istok+Web:400,700');
+@import "shared/_mixins";
+
+*{
+  @include reset;
+}
+html{
+  font-size: 62.5%;
+}
+body{
+  @include antialiasing;
+  background: $color-black;
+  color: $color-white;
+}
+.page{
+  font-family: $font-regular;
+  font-size: 1.5rem;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.debug{
+  background: #FAF5E3;
+  color: #333;
+  font-family: monospace;
+  padding: 20px 3%;
+
+  .commands li{
+    margin-bottom: 5px;
+  }
+  .commands p{
+    font-family: monospace;
+    &.command{ color: #333; }
+    .properties{ color: #888; }
+  }
+}
+h1 {
+  margin: 1em 0 .5em;
+  text-align: center;
+}
+.action-button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 10px auto;
+  vertical-align: middle;
+  color: $color-white;
+  text-decoration: none;
+  background-color: $color-blue;
+  border-radius: 5px;
+}
+.action-button img {
+  display: inline-block;
+  max-width: 15px;
+  padding-right: 5px;
+  vertical-align: middle;
+}
